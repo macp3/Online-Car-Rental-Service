@@ -38,6 +38,7 @@ public class RegistrationServlet extends HttpServlet {
             else {
                 Client client = new Client(EMAIL, FIRSTNAME, LASTNAME, PASSWORD, PHONENUMBER, BILLINGADDRESS, PREFFEREDPAYMENTID);
                 try{
+                    Class.forName("oracle.jdbc.OracleDriver");
 
                     Connection con= DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/ORCLPDB","homeuser","soloQUita1");
                     Statement stmt=con.createStatement();
@@ -75,7 +76,7 @@ public class RegistrationServlet extends HttpServlet {
 
                         if(affectedRows > 0)
                         {
-                            //SendEmail.SendVeryfication();
+                            new SendEmail().sendMail("Witamy na pokładzie", "Jesteś od teraz użytkownikiem SUVami!", client.getEMAIL());
                         }
                     }
                 }catch(Exception e){
