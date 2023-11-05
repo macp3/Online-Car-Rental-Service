@@ -40,3 +40,4 @@ build/
 **/*.local
 **/*.git
 **/*.DS_Store
+/tokens/

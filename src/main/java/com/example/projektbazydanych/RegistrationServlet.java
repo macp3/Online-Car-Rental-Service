@@ -23,37 +23,34 @@ public class RegistrationServlet extends HttpServlet {
 
         int PREFFEREDPAYMENTID = Integer.parseInt(PREFFEREDPAYMENTIDstring);
 
-        if(EMAIL == null || FIRSTNAME == null || LASTNAME == null || PASSWORD == null
+        if (EMAIL == null || FIRSTNAME == null || LASTNAME == null || PASSWORD == null
                 || CONFIRMPASSWORD == null || PHONENUMBER == null) {
             request.setAttribute("error", "Nie wszystkie obowiązkowe pola zostały uzupełnione");
             doGet(request, response);
-        }
-        else{
+        } else {
             if (!PASSWORD.equals(CONFIRMPASSWORD)) {
                 request.setAttribute("error", "Hasła się nie pokrywają");
                 doGet(request, response);
-            }
-            else {
+            } else {
                 Client client = new Client(EMAIL, FIRSTNAME, LASTNAME, PASSWORD, PHONENUMBER, BILLINGADDRESS, PREFFEREDPAYMENTID);
-                try{
+                try {
                     Class.forName("oracle.jdbc.OracleDriver");
 
-                    Connection con= DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/ORCLPDB","homeuser","soloQUita1");
-                    Statement stmt=con.createStatement();
+                    Connection con = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/ORCLPDB", "homeuser", "soloQUita1");
+                    Statement stmt = con.createStatement();
 
-                    ResultSet checkIfUserExist=stmt.executeQuery("select * from CLIENTS WHERE EMAIL = '"+ client.getEMAIL() +"'");
+                    ResultSet checkIfUserExist = stmt.executeQuery("select * from CLIENTS WHERE EMAIL = '" + client.getEMAIL() + "'");
 
 
-                    if(checkIfUserExist.next()) {
+                    if (checkIfUserExist.next()) {
                         request.setAttribute("error", "Taki użytkownik już istnieje w bazie");
                         con.close();
                         doGet(request, response);
-                    }
-                    else {
+                    } else {
                         String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
 
                         String SQL = "INSERT INTO CLIENTS(CLIENTID, FIRSTNAME, LASTNAME, " +
-                        "BILLINGADDRESS, PASSWORD, EMAIL, PREFFEREDPAYMENTID, PHONENUMBER, ENTRYDATE, STATUS) " +
+                                "BILLINGADDRESS, PASSWORD, EMAIL, PREFFEREDPAYMENTID, PHONENUMBER, ENTRYDATE, STATUS) " +
                                 "VALUES (CLIENT_ID_SEQUENCE.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
                         PreparedStatement pstmt = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
@@ -72,12 +69,19 @@ public class RegistrationServlet extends HttpServlet {
 
                         con.close();
 
-                        if(affectedRows > 0)
-                        {
-                            new SendEmail().sendMail("Witamy na pokładzie", "Jesteś od teraz użytkownikiem SUVami!", client.getEMAIL());
+                        if (affectedRows > 0) {
+                            new SendEmail().sendMail("Witamy na pokładzie!", """
+                                    Jesteś od teraz użytkownikiem SUVami!
+                                                                        
+                                    Aby zweryfikować swoje konto kliknij w poniższy link:
+                                    http://localhost:8080/Verification""" + "?email=" + client.getEMAIL() + """
+                                                                        
+                                    Pozdrawiamy
+                                    Zespół SUVami!
+                                    """, client.getEMAIL());
                         }
                     }
-                }catch(Exception e){
+                } catch (Exception e) {
                     System.out.println(e);
                     request.setAttribute("error", e);
                     doGet(request, response);
