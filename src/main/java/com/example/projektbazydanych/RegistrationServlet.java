@@ -11,8 +11,6 @@ import jakarta.servlet.annotation.*;
 
 @WebServlet(name = "RegistrationServlet", urlPatterns = "/register")
 public class RegistrationServlet extends HttpServlet {
-    private String message;
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String EMAIL = request.getParameter("EMAIL");
         String FIRSTNAME = request.getParameter("FIRSTNAME");
