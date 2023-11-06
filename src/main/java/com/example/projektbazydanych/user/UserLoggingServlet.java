@@ -1,10 +1,7 @@
 package com.example.projektbazydanych.user;
 
 import java.io.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Objects;
 
 import com.example.projektbazydanych.CompAdmin.CompAdmin;
@@ -24,10 +21,13 @@ public class UserLoggingServlet extends HttpServlet {
             Class.forName("oracle.jdbc.OracleDriver");
 
             Connection con = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/ORCLPDB", "homeuser", "soloQUita1");
-            Statement stmt1 = con.createStatement();
 
-            ResultSet checkIfClientExist = stmt1.executeQuery("select * from CLIENTS WHERE EMAIL = '" +
-                    "" + email + "' AND PASSWORD = '" + password + "'");
+            String query = "select * from CLIENTS WHERE EMAIL = ? AND PASSWORD = ?";
+            PreparedStatement stmt1 = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            stmt1.setString(1, email);
+            stmt1.setString(2, password);
+
+            ResultSet checkIfClientExist = stmt1.executeQuery();
 
             if (checkIfClientExist.next()) {
                 if (Objects.equals(checkIfClientExist.getString(10), "Verified")) {
@@ -52,9 +52,13 @@ public class UserLoggingServlet extends HttpServlet {
             } else {
                 checkIfClientExist.close();
                 stmt1.close();
-                Statement stmt2 = con.createStatement();
-                ResultSet checkIfEmployeeExist = stmt2.executeQuery("select * from EMPLOYEES WHERE EMAIL = '" +
-                        "" + email + "' AND PASSWORD = '" + password + "'");
+
+                query = "select * from EMPLOYEES WHERE EMAIL = ? AND PASSWORD = ?";
+                PreparedStatement stmt2 = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+                stmt2.setString(1, email);
+                stmt2.setString(2, password);
+
+                ResultSet checkIfEmployeeExist = stmt2.executeQuery();
 
                 if (checkIfEmployeeExist.next()) {
                     Employee loggedEmployee = new Employee(checkIfEmployeeExist.getInt(1),
@@ -73,12 +77,16 @@ public class UserLoggingServlet extends HttpServlet {
                 } else {
                     checkIfEmployeeExist.close();
                     stmt2.close();
-                    Statement stmt3 = con.createStatement();
-                    ResultSet checkIfCompAdminExist = stmt3.executeQuery("select * from COMP_ADMINS WHERE EMAIL = '" +
-                            email + "' AND PASSWORD = '" + password + "'");
+
+                    query = "select * from COMP_ADMINS WHERE EMAIL = ? AND PASSWORD = ?";
+                    PreparedStatement stmt3 = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+                    stmt3.setString(1, email);
+                    stmt3.setString(2, password);
+
+                    ResultSet checkIfCompAdminExist = stmt3.executeQuery();
 
                     if (checkIfCompAdminExist.next()) {
-                        //problem
+
                         CompAdmin loggedCompAdmin = new CompAdmin(checkIfCompAdminExist.getInt(1),
                                 checkIfCompAdminExist.getInt(2), checkIfCompAdminExist.getString(3),
                                 checkIfCompAdminExist.getString(4));

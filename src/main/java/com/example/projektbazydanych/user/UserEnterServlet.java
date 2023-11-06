@@ -1,10 +1,7 @@
 package com.example.projektbazydanych.user;
 
 import java.io.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Objects;
 
 import com.example.projektbazydanych.CompAdmin.CompAdmin;
@@ -38,10 +35,14 @@ public class UserEnterServlet extends HttpServlet {
                     Class.forName("oracle.jdbc.OracleDriver");
 
                     Connection con = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/ORCLPDB", "homeuser", "soloQUita1");
-                    Statement stmt = con.createStatement();
 
-                    ResultSet checkIfClientExist = stmt.executeQuery("select * from CLIENTS WHERE EMAIL = '" +
-                            email + "' AND PASSWORD = '" + password + "'");
+                    String query = "select * from CLIENTS WHERE EMAIL = ? AND PASSWORD = ?";
+                    PreparedStatement stmt = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+                    stmt.setString(1, email);
+                    stmt.setString(2, password);
+
+
+                    ResultSet checkIfClientExist = stmt.executeQuery();
 
                     if (checkIfClientExist.next()) {
                         Client loggedClient = new Client(checkIfClientExist.getInt(1), checkIfClientExist.getString(2),
@@ -55,8 +56,14 @@ public class UserEnterServlet extends HttpServlet {
 
 
                     } else {
-                        ResultSet checkIfEmployeeExist = stmt.executeQuery("select * from EMPLOYEES WHERE EMAIL = '" +
-                                email + "' AND PASSWORD = '" + password + "'");
+                        checkIfClientExist.close();
+                        stmt.close();
+                        query = "select * from EMPLOYEES WHERE EMAIL = ? AND PASSWORD = ?";
+                        PreparedStatement stmt1 = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+                        stmt1.setString(1, email);
+                        stmt1.setString(2, password);
+
+                        ResultSet checkIfEmployeeExist = stmt1.executeQuery();
 
                         if (checkIfEmployeeExist.next()) {
 
@@ -70,8 +77,14 @@ public class UserEnterServlet extends HttpServlet {
                             getServletContext().getRequestDispatcher("/loggedEmployeeMainPage.jsp").forward(request, response);
 
                         } else {
-                            ResultSet checkIfCompAdminExist = stmt.executeQuery("select * from COMP_ADMINS WHERE EMAIL = '" +
-                                    email + "' AND PASSWORD = '" + password + "'");
+                            checkIfEmployeeExist.close();
+                            stmt1.close();
+                            query = "select * from COMP_ADMINS WHERE EMAIL = ? AND PASSWORD = ?";
+                            PreparedStatement stmt2 = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+                            stmt2.setString(1, email);
+                            stmt2.setString(2, password);
+
+                            ResultSet checkIfCompAdminExist = stmt2.executeQuery();
 
                             if (checkIfCompAdminExist.next()) {
                                 CompAdmin loggedCompAdmin = new CompAdmin(checkIfCompAdminExist.getInt(1),
@@ -83,6 +96,8 @@ public class UserEnterServlet extends HttpServlet {
                                 getServletContext().getRequestDispatcher("/loggedCompAdminMainPage.jsp").forward(request, response);
 
                             } else {
+                                checkIfCompAdminExist.close();
+                                stmt2.close();
                                 getServletContext().getRequestDispatcher("/startPage.jsp").forward(request, response);
                             }
                         }

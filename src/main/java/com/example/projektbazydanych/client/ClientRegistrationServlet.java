@@ -7,7 +7,6 @@ import java.util.Calendar;
 import java.text.SimpleDateFormat;
 
 import com.example.projektbazydanych.SendEmail;
-import com.example.projektbazydanych.client.Client;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -22,9 +21,6 @@ public class ClientRegistrationServlet extends HttpServlet {
         String CONFIRMPASSWORD = request.getParameter("CONFIRMPASSWORD");
         String PHONENUMBER = request.getParameter("PHONENUMBER");
         String BILLINGADDRESS = request.getParameter("BILLINGADDRESS");
-        String PREFFEREDPAYMENTIDstring = request.getParameter("PREFFEREDPAYMENTID");
-
-        int PREFFEREDPAYMENTID = Integer.parseInt(PREFFEREDPAYMENTIDstring);
 
         if (EMAIL == null || FIRSTNAME == null || LASTNAME == null || PASSWORD == null
                 || CONFIRMPASSWORD == null || PHONENUMBER == null) {
@@ -39,9 +35,13 @@ public class ClientRegistrationServlet extends HttpServlet {
                     Class.forName("oracle.jdbc.OracleDriver");
 
                     Connection con = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/ORCLPDB", "homeuser", "soloQUita1");
-                    Statement stmt = con.createStatement();
 
-                    ResultSet checkIfUserExist = stmt.executeQuery("select * from CLIENTS WHERE EMAIL = '" + EMAIL.trim() + "'");
+                    String query = "select * from CLIENTS WHERE EMAIL = ?";
+                    PreparedStatement stmt = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+                    stmt.setString(1, EMAIL.trim());
+
+
+                    ResultSet checkIfUserExist = stmt.executeQuery();
 
 
                     if (checkIfUserExist.next()) {
@@ -62,7 +62,7 @@ public class ClientRegistrationServlet extends HttpServlet {
                         pstmt.setString(3, BILLINGADDRESS.trim());
                         pstmt.setString(4, PASSWORD.trim());
                         pstmt.setString(5, EMAIL.trim());
-                        pstmt.setInt(6, PREFFEREDPAYMENTID);
+                        pstmt.setInt(6, 1);
                         pstmt.setString(7, PHONENUMBER.trim());
                         pstmt.setString(8, timeStamp);
                         pstmt.setString(9, "Waiting");
@@ -84,11 +84,9 @@ public class ClientRegistrationServlet extends HttpServlet {
                         }
                     }
                 } catch (com.google.api.client.googleapis.json.GoogleJsonResponseException e) {
-                    System.out.println(e);
                     request.setAttribute("error", "Niepoprawny adres email");
                     doGet(request, response);
                 } catch (Exception e) {
-                    System.out.println(e);
                     request.setAttribute("error", e);
                     doGet(request, response);
                 }
