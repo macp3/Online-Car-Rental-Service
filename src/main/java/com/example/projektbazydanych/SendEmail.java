@@ -23,10 +23,7 @@ import com.google.api.services.gmail.model.Message;
 import java.io.*;
 import java.nio.file.Paths;
 import java.security.GeneralSecurityException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Properties;
-import java.util.Set;
+import java.util.*;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Session;
@@ -57,11 +54,13 @@ public class SendEmail {
              GoogleClientSecrets clientSecrets =
                 GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(Objects.requireNonNull(SendEmail.class.getResourceAsStream(CREDENTIALS_FILE_PATH))));
 
+                Wiadomość od macieja: Tak zrobiłem, co masz na sobie?
+
         */
 
 
         GoogleClientSecrets clientSecrets =
-                GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(SendEmail.class.getResourceAsStream(CREDENTIALS_FILE_PATH)));
+                GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(Objects.requireNonNull(SendEmail.class.getResourceAsStream(CREDENTIALS_FILE_PATH))));
 
         // Build flow and trigger user authorization request.
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
