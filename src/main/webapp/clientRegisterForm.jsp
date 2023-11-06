@@ -7,7 +7,7 @@
 <body>
 <h1> Zarejestruj się
 </h1>
-<form method="post" action="/register">
+<form method="post" action="/client/register">
 
     <label for="EMAIL">Email</label>
     <input type="email" id="EMAIL" name="EMAIL"><br>

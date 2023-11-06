@@ -25,7 +25,7 @@ public class VerificationServlet extends HttpServlet {
 
             ResultSet checkIfUserExist = stmt.executeQuery("UPDATE CLIENTS SET STATUS='Verified' WHERE EMAIL = '" + request.getParameter("email") + "'");
 
-            request.setAttribute("response", "Udało ci się zweryfikować konto");
+            request.setAttribute("response", "Udało ci się zweryfikować konto, możesz teraz powrócić na stronę główną");
 
             getServletContext().getRequestDispatcher("/verification.jsp").forward(request, response);
 

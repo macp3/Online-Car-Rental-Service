@@ -9,8 +9,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "RegistrationServlet", urlPatterns = "/register")
-public class RegistrationServlet extends HttpServlet {
+@WebServlet(name = "ClientRegistrationServlet", urlPatterns = "/client/register")
+public class ClientRegistrationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String EMAIL = request.getParameter("EMAIL");
         String FIRSTNAME = request.getParameter("FIRSTNAME");
@@ -89,11 +89,14 @@ public class RegistrationServlet extends HttpServlet {
             }
         }
 
+        request.setAttribute("error", "Udało ci się pomyślnie zarejestrować, potwierdź teraz swój" +
+                " email klikając w wiadomości przysłanej na twój adres");
+        doGet(request, response);
 
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/register.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/clientRegisterForm.jsp").forward(request, response);
     }
 
 }
