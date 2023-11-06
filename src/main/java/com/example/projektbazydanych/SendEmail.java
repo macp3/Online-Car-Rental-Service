@@ -51,6 +51,15 @@ public class SendEmail {
     private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT, GsonFactory JSON_FACTORY)
             throws IOException {
 
+        /*  propozycja
+            mozna swapnac to na bo to bedzie handlowalo nullExpecta w razie wypadku
+
+             GoogleClientSecrets clientSecrets =
+                GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(Objects.requireNonNull(SendEmail.class.getResourceAsStream(CREDENTIALS_FILE_PATH))));
+
+        */
+
+
         GoogleClientSecrets clientSecrets =
                 GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(SendEmail.class.getResourceAsStream(CREDENTIALS_FILE_PATH)));
 
