@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.net.InetAddress" %><%--
   Created by IntelliJ IDEA.
   User: Maciej
   Date: 05.11.2023
@@ -13,10 +13,10 @@
 <body>
 <div>
     <h1>Jak chcesz użytkować system?</h1><br>
-    <a href="http://localhost:8080/client">
+    <a href=<%="http://"+ InetAddress.getLocalHost().getHostAddress().trim() +":8080/client"%>>
         <button>Klient</button>
     </a>
-    <a href="http://localhost:8080/employee">
+    <a href=<%="http://"+ InetAddress.getLocalHost().getHostAddress().trim()+":8080/employee"%>>
         <button>Pracownik</button>
     </a>
 </div>

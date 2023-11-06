@@ -1,6 +1,7 @@
 package com.example.projektbazydanych;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.sql.*;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
@@ -74,13 +75,17 @@ public class ClientRegistrationServlet extends HttpServlet {
                                     Jesteś od teraz użytkownikiem SUVami!
                                                                         
                                     Aby zweryfikować swoje konto kliknij w poniższy link:
-                                    http://localhost:8080/Verification""" + "?email=" + client.getEMAIL() + """
+                                    http://""" + InetAddress.getLocalHost().getHostAddress().trim() + ":8080/Verification" + "?email=" + client.getEMAIL() + """
                                                                         
                                     Pozdrawiamy
                                     Zespół SUVami!
                                     """, client.getEMAIL());
                         }
                     }
+                } catch (com.google.api.client.googleapis.json.GoogleJsonResponseException e) {
+                    System.out.println(e);
+                    request.setAttribute("error", "Niepoprawny adres email");
+                    doGet(request, response);
                 } catch (Exception e) {
                     System.out.println(e);
                     request.setAttribute("error", e);
