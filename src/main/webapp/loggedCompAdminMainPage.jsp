@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Witamy admina firmowego ${loggedClient.getFIRSTNAME()} ${loggedClient.getLASTNAME()}</h1>
+<h1>Witamy admina firmowego ${loggedCompAdmin.getEMAIL()} ${loggedCompAdmin.getCOMPANYID()}</h1>
 </body>
 </html>

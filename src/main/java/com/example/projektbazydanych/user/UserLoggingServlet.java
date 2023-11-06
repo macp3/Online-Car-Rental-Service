@@ -24,9 +24,9 @@ public class UserLoggingServlet extends HttpServlet {
             Class.forName("oracle.jdbc.OracleDriver");
 
             Connection con = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/ORCLPDB", "homeuser", "soloQUita1");
-            Statement stmt = con.createStatement();
+            Statement stmt1 = con.createStatement();
 
-            ResultSet checkIfClientExist = stmt.executeQuery("select * from CLIENTS WHERE EMAIL = '" +
+            ResultSet checkIfClientExist = stmt1.executeQuery("select * from CLIENTS WHERE EMAIL = '" +
                     "" + email + "' AND PASSWORD = '" + password + "'");
 
             if (checkIfClientExist.next()) {
@@ -50,7 +50,10 @@ public class UserLoggingServlet extends HttpServlet {
                 }
 
             } else {
-                ResultSet checkIfEmployeeExist = stmt.executeQuery("select * from EMPLOYEES WHERE EMAIL = '" +
+                checkIfClientExist.close();
+                stmt1.close();
+                Statement stmt2 = con.createStatement();
+                ResultSet checkIfEmployeeExist = stmt2.executeQuery("select * from EMPLOYEES WHERE EMAIL = '" +
                         "" + email + "' AND PASSWORD = '" + password + "'");
 
                 if (checkIfEmployeeExist.next()) {
@@ -68,12 +71,16 @@ public class UserLoggingServlet extends HttpServlet {
 
                     getServletContext().getRequestDispatcher("/loggedEmployeeMainPage.jsp").forward(request, response);
                 } else {
-                    ResultSet checkIfCompAdminExist = stmt.executeQuery("select * from COMP_ADMINS WHERE EMAIL = '" +
+                    checkIfEmployeeExist.close();
+                    stmt2.close();
+                    Statement stmt3 = con.createStatement();
+                    ResultSet checkIfCompAdminExist = stmt3.executeQuery("select * from COMP_ADMINS WHERE EMAIL = '" +
                             email + "' AND PASSWORD = '" + password + "'");
 
                     if (checkIfCompAdminExist.next()) {
+                        //problem
                         CompAdmin loggedCompAdmin = new CompAdmin(checkIfCompAdminExist.getInt(1),
-                                checkIfClientExist.getInt(2), checkIfCompAdminExist.getString(3),
+                                checkIfCompAdminExist.getInt(2), checkIfCompAdminExist.getString(3),
                                 checkIfCompAdminExist.getString(4));
 
                         request.setAttribute("loggedCompAdmin", loggedCompAdmin);
@@ -91,7 +98,6 @@ public class UserLoggingServlet extends HttpServlet {
                     }
                 }
             }
-
             con.close();
         } catch (Exception e) {
             System.out.println(e);
