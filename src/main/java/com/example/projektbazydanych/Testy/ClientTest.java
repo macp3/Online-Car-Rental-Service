@@ -8,7 +8,7 @@ import com.example.projektbazydanych.client.Client;
 public class ClientTest {
     @Test
     public void testClientConstructor() {
-        Client client = new Client(0, "Ignacy", "Pytel", "debil", "test@example.com", "Address", 1, "2137");
+        Client client = new Client(0, "Ignacy", "Pytel", "Address", "debil", "test@example.com", 1, "2137");
         assertEquals("test@example.com", client.getEMAIL());
         assertEquals("Ignacy", client.getFIRSTNAME());
         assertEquals("Pytel", client.getLASTNAME());
