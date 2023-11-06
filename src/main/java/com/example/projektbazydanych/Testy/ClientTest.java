@@ -3,12 +3,12 @@ package com.example.projektbazydanych.Testy;
 import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.example.projektbazydanych.Client;
+import com.example.projektbazydanych.client.Client;
 
 public class ClientTest {
     @Test
     public void testClientConstructor() {
-        Client client = new Client("test@example.com", "Ignacy", "Pytel", "debil", "2137", "Address", 1);
+        Client client = new Client(0, "Ignacy", "Pytel", "debil", "test@example.com", "Address", 1, "2137");
         assertEquals("test@example.com", client.getEMAIL());
         assertEquals("Ignacy", client.getFIRSTNAME());
         assertEquals("Pytel", client.getLASTNAME());

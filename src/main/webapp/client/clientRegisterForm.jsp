@@ -45,7 +45,7 @@
 
 </form>
 <p>lub</p><br>
-<a href=<%="http://"+ InetAddress.getLocalHost().getHostAddress().trim() +":8080/client/login"%>>
+<a href=<%="http://"+ InetAddress.getLocalHost().getHostAddress().trim() +":8080/user/login"%>>
     <button>Zaloguj się</button>
 </a><br>
 

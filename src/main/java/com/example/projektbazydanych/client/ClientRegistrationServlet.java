@@ -1,4 +1,4 @@
-package com.example.projektbazydanych;
+package com.example.projektbazydanych.client;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -6,6 +6,8 @@ import java.sql.*;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
 
+import com.example.projektbazydanych.SendEmail;
+import com.example.projektbazydanych.client.Client;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -33,14 +35,13 @@ public class ClientRegistrationServlet extends HttpServlet {
                 request.setAttribute("error", "Hasła się nie pokrywają");
                 doGet(request, response);
             } else {
-                Client client = new Client(EMAIL, FIRSTNAME, LASTNAME, PASSWORD, PHONENUMBER, BILLINGADDRESS, PREFFEREDPAYMENTID);
                 try {
                     Class.forName("oracle.jdbc.OracleDriver");
 
                     Connection con = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/ORCLPDB", "homeuser", "soloQUita1");
                     Statement stmt = con.createStatement();
 
-                    ResultSet checkIfUserExist = stmt.executeQuery("select * from CLIENTS WHERE EMAIL = '" + client.getEMAIL() + "'");
+                    ResultSet checkIfUserExist = stmt.executeQuery("select * from CLIENTS WHERE EMAIL = '" + EMAIL.trim() + "'");
 
 
                     if (checkIfUserExist.next()) {
@@ -56,13 +57,13 @@ public class ClientRegistrationServlet extends HttpServlet {
 
                         PreparedStatement pstmt = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
 
-                        pstmt.setString(1, client.getFIRSTNAME());
-                        pstmt.setString(2, client.getLASTNAME());
-                        pstmt.setString(3, client.getBILLINGADDRESS());
-                        pstmt.setString(4, client.getPASSWORD());
-                        pstmt.setString(5, client.getEMAIL());
-                        pstmt.setInt(6, client.getPREFFEREDPAYMENTID());
-                        pstmt.setString(7, client.getPHONENUMBER());
+                        pstmt.setString(1, FIRSTNAME.trim());
+                        pstmt.setString(2, LASTNAME.trim());
+                        pstmt.setString(3, BILLINGADDRESS.trim());
+                        pstmt.setString(4, PASSWORD.trim());
+                        pstmt.setString(5, EMAIL.trim());
+                        pstmt.setInt(6, PREFFEREDPAYMENTID);
+                        pstmt.setString(7, PHONENUMBER.trim());
                         pstmt.setString(8, timeStamp);
                         pstmt.setString(9, "Waiting");
 
@@ -75,11 +76,11 @@ public class ClientRegistrationServlet extends HttpServlet {
                                     Jesteś od teraz użytkownikiem SUVami!
                                                                         
                                     Aby zweryfikować swoje konto kliknij w poniższy link:
-                                    http://""" + InetAddress.getLocalHost().getHostAddress().trim() + ":8080/Verification" + "?email=" + client.getEMAIL() + """
+                                    http://""" + InetAddress.getLocalHost().getHostAddress().trim() + ":8080/Verification" + "?email=" + EMAIL.trim() + """
                                                                         
                                     Pozdrawiamy
                                     Zespół SUVami!
-                                    """, client.getEMAIL());
+                                    """, EMAIL.trim());
                         }
                     }
                 } catch (com.google.api.client.googleapis.json.GoogleJsonResponseException e) {
@@ -101,7 +102,7 @@ public class ClientRegistrationServlet extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/clientRegisterForm.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/client/clientRegisterForm.jsp").forward(request, response);
     }
 
 }

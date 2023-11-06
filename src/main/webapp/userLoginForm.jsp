@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.net.InetAddress" %><%--
   Created by IntelliJ IDEA.
   User: Maciej
   Date: 06.11.2023
@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-<form method="post" action="/client/login">
+<form method="post" action="/user/login">
 
     <label for="EMAIL">Email</label>
     <input type="email" id="EMAIL" name="EMAIL"><br>
@@ -24,5 +24,8 @@
     <p>${error}</p>
 
 </form>
+<a href=<%="http://"+ InetAddress.getLocalHost().getHostAddress().trim() +":8080/client/register"%>>
+    <button>Zarejestruj się</button>
+</a>
 </body>
 </html>

@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Witamy ${loggedClient.getFIRSTNAME()} ${loggedClient.getLASTNAME()}</h1>
+<h1>Witamy klienta ${loggedClient.getFIRSTNAME()} ${loggedClient.getLASTNAME()}</h1>
 </body>
 </html>

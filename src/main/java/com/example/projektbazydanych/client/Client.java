@@ -1,27 +1,29 @@
-package com.example.projektbazydanych;
+package com.example.projektbazydanych.client;
 
 import java.io.Serializable;
 
 public class Client implements Serializable {
-    private String EMAIL;
+    private int CLIENTID;
     private String FIRSTNAME;
     private String LASTNAME;
-    private String PASSWORD;
-    private String PHONENUMBER;
     private String BILLINGADDRESS;
+    private String PASSWORD;
+    private String EMAIL;
     private int PREFFEREDPAYMENTID;
+    private String PHONENUMBER;
 
     public Client() {
     }
 
-    public Client(String EMAIL, String FIRSTNAME, String LASTNAME, String PASSWORD, String PHONENUMBER, String BILLINGADDRESS, int PREFFEREDPAYMENTID) {
-        this.EMAIL = EMAIL;
+    public Client(int CLIENTID, String FIRSTNAME, String LASTNAME, String BILLINGADDRESS, String PASSWORD, String EMAIL, int PREFFEREDPAYMENTID, String PHONENUMBER) {
+        this.CLIENTID = CLIENTID;
         this.FIRSTNAME = FIRSTNAME;
         this.LASTNAME = LASTNAME;
-        this.PASSWORD = PASSWORD;
-        this.PHONENUMBER = PHONENUMBER;
         this.BILLINGADDRESS = BILLINGADDRESS;
+        this.PASSWORD = PASSWORD;
+        this.EMAIL = EMAIL;
         this.PREFFEREDPAYMENTID = PREFFEREDPAYMENTID;
+        this.PHONENUMBER = PHONENUMBER;
     }
 
     public String getEMAIL() {
@@ -76,7 +78,15 @@ public class Client implements Serializable {
         return PREFFEREDPAYMENTID;
     }
 
-    public void setPREFFEREDPAYMENTID(Integer PREFFEREDPAYMENTID) {
+    public int getCLIENTID() {
+        return CLIENTID;
+    }
+
+    public void setCLIENTID(int CLIENTID) {
+        this.CLIENTID = CLIENTID;
+    }
+
+    public void setPREFFEREDPAYMENTID(int PREFFEREDPAYMENTID) {
         this.PREFFEREDPAYMENTID = PREFFEREDPAYMENTID;
     }
 }
