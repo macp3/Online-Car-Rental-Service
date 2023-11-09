@@ -13,6 +13,7 @@ public class Client implements Serializable {
     private String PHONENUMBER;
 
     public Client() {
+
     }
 
     public Client(int CLIENTID, String FIRSTNAME, String LASTNAME, String BILLINGADDRESS, String PASSWORD, String EMAIL, int PREFFEREDPAYMENTID, String PHONENUMBER) {

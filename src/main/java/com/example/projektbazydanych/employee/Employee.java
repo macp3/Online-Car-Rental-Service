@@ -11,6 +11,7 @@ public class Employee implements Serializable {
     private String PHONENUMBER;
 
     public Employee() {
+
     }
 
     public Employee(int EMPLOYEEID, int COMPANYID, String FIRSTNAME, String LASTNAME, String PASSWORD, String EMAIL, String PHONENUMBER) {

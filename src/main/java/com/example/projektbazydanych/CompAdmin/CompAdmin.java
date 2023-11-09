@@ -16,6 +16,7 @@ public class CompAdmin implements Serializable {
     }
 
     public CompAdmin() {
+
     }
 
     public int getADMINID() {

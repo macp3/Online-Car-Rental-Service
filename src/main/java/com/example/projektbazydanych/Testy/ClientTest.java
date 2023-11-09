@@ -29,6 +29,7 @@ public class ClientTest {
         client.setPHONENUMBER("123456789");
         client.setBILLINGADDRESS("Chelm");
         client.setPREFFEREDPAYMENTID(1);
+        client.setCLIENTID(12334334);
 
         assertEquals("debilHWDP@gmail.com", client.getEMAIL());
         assertEquals("Playboi", client.getFIRSTNAME());
@@ -37,5 +38,6 @@ public class ClientTest {
         assertEquals("123456789", client.getPHONENUMBER());
         assertEquals("Chelm", client.getBILLINGADDRESS());
         assertEquals(1, client.getPREFFEREDPAYMENTID());
+        assertEquals(12334334, client.getCLIENTID());
     }
 }
