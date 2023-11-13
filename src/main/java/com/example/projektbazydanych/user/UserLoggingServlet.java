@@ -11,7 +11,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "UserLoggingServlet", urlPatterns = "/user/login")
+@WebServlet(name = "UserLoggingServlet", urlPatterns = "/login")
 public class UserLoggingServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("EMAIL");
@@ -39,11 +39,13 @@ public class UserLoggingServlet extends HttpServlet {
                     request.setAttribute("loggedClient", loggedClient);
 
                     Cookie emailcookie = new Cookie("email", email);
-                    Cookie passwordcookie = new Cookie("password", password);
+                    emailcookie.setPath("/start");
                     response.addCookie(emailcookie);
+                    Cookie passwordcookie = new Cookie("password", password);
+                    passwordcookie.setPath("/start");
                     response.addCookie(passwordcookie);
 
-                    getServletContext().getRequestDispatcher("/client/loggedClientMainPage.jsp").forward(request, response);
+                    getServletContext().getRequestDispatcher("/LoggedClientMainServlet").forward(request, response);
                 } else {
                     request.setAttribute("error", "Konto nie zostało zweryfikowane");
                     doGet(request, response);
@@ -69,8 +71,10 @@ public class UserLoggingServlet extends HttpServlet {
                     request.setAttribute("loggedEmployee", loggedEmployee);
 
                     Cookie emailcookie = new Cookie("email", email);
-                    Cookie passwordcookie = new Cookie("password", password);
+                    emailcookie.setPath("/start");
                     response.addCookie(emailcookie);
+                    Cookie passwordcookie = new Cookie("password", password);
+                    passwordcookie.setPath("/start");
                     response.addCookie(passwordcookie);
 
                     getServletContext().getRequestDispatcher("/loggedEmployeeMainPage.jsp").forward(request, response);
@@ -94,8 +98,10 @@ public class UserLoggingServlet extends HttpServlet {
                         request.setAttribute("loggedCompAdmin", loggedCompAdmin);
 
                         Cookie emailcookie = new Cookie("email", email);
-                        Cookie passwordcookie = new Cookie("password", password);
+                        emailcookie.setPath("/start");
                         response.addCookie(emailcookie);
+                        Cookie passwordcookie = new Cookie("password", password);
+                        passwordcookie.setPath("/start");
                         response.addCookie(passwordcookie);
 
                         getServletContext().getRequestDispatcher("/loggedCompAdminMainPage.jsp").forward(request, response);

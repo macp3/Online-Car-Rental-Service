@@ -11,7 +11,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "ClientRegistrationServlet", urlPatterns = "/client/register")
+@WebServlet(name = "ClientRegistrationServlet", urlPatterns = "/register")
 public class ClientRegistrationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String EMAIL = request.getParameter("EMAIL");
@@ -20,7 +20,13 @@ public class ClientRegistrationServlet extends HttpServlet {
         String PASSWORD = request.getParameter("PASSWORD");
         String CONFIRMPASSWORD = request.getParameter("CONFIRMPASSWORD");
         String PHONENUMBER = request.getParameter("PHONENUMBER");
-        String BILLINGADDRESS = request.getParameter("BILLINGADDRESS");
+        String CITYCODE = request.getParameter("CITYCODE");
+        String CITY = request.getParameter("CITY");
+        String STREETNAME = request.getParameter("STREETNAME");
+        String HOUSENUM = request.getParameter("HOUSENUM");
+
+
+        String BILLINGADDRESS = CITYCODE + " " + CITY + " " + STREETNAME + " " + HOUSENUM;
 
         if (EMAIL == null || FIRSTNAME == null || LASTNAME == null || PASSWORD == null
                 || CONFIRMPASSWORD == null || PHONENUMBER == null) {
@@ -100,7 +106,7 @@ public class ClientRegistrationServlet extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/client/clientRegisterForm.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/clientRegisterForm.jsp").forward(request, response);
     }
 
 }

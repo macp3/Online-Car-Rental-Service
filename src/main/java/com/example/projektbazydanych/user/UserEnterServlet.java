@@ -11,7 +11,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "UserEnterServlet", urlPatterns = "")
+@WebServlet(name = "UserEnterServlet", urlPatterns = "/start")
 public class UserEnterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -29,6 +29,8 @@ public class UserEnterServlet extends HttpServlet {
                 String tname = c.getName();
                 if (Objects.equals(tname, "email")) email = c.getValue();
                 else if (Objects.equals(tname, "password")) password = c.getValue();
+                System.out.println(tname);
+                System.out.println(c.getValue());
             }
             if (email != null && password != null) {
                 try {
@@ -52,7 +54,7 @@ public class UserEnterServlet extends HttpServlet {
 
                         request.setAttribute("loggedClient", loggedClient);
 
-                        getServletContext().getRequestDispatcher("/client/loggedClientMainPage.jsp").forward(request, response);
+                        getServletContext().getRequestDispatcher("/LoggedClientMainServlet").forward(request, response);
 
 
                     } else {
