@@ -188,7 +188,7 @@ form img {
 	left: 1rem;
 	pointer-events: none;
 }
-form button, #dupa {
+.btn{
 	padding: 1.2rem 1rem;
 	text-align: center;
 	font-size: 1.8rem;
@@ -198,7 +198,7 @@ form button, #dupa {
 	color: var(--white);
 }
 
-form button:hover, #dupa:hover{
+.btn:hover{
 	opacity: 0.7;
 }
 input[type="datetime-local"] {
