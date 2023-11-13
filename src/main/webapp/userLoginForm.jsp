@@ -45,7 +45,7 @@ To change this template use File | Settings | File Templates.
                 <input type="password" placeholder="Podaj hasło" id="password" name="PASSWORD" />
             </div>
 
-            <button type="sumbit">Zaloguj się</button>
+            <button type="sumbit" class="btn">Zaloguj się</button>
 
             <p>${error}</p>
             <a href="# " class="help-text">Nie możesz się zalogować?</a>
