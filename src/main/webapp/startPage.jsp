@@ -39,7 +39,7 @@
                 <input type="datetime-local" />
             </div>
 
-            <button type="sumbit">Szukaj</button>
+            <button type="sumbit" class="btn">Szukaj</button>
         </form>
     </div>
 </main>
