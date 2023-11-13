@@ -57,7 +57,7 @@ To change this template use File | Settings | File Templates.
             </div>
 
         </form>
-        <button id="dupa"><a href=<%="http://"+ InetAddress.getLocalHost().getHostAddress().trim() +":8080/register"%>>Utwórz konto</a></button>
+        <button class="btn" onclick="location.href = '<%="http://"+ InetAddress.getLocalHost().getHostAddress().trim() +":8080/register"%>';">Utwórz konto</button>
     </div>
 </main>
 </body>
