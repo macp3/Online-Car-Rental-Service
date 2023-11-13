@@ -108,7 +108,7 @@
                 >
             </div>
 
-            <button type="submit" id="createAccount">Utwórz konto</button>
+            <button type="submit" id="createAccount" class="btn">Utwórz konto</button>
             <a class="help-text register" href=<%="http://"+ InetAddress.getLocalHost().getHostAddress().trim() +":8080/login"%>>
             Masz już konto? Zaloguj się</a>
         </form>
