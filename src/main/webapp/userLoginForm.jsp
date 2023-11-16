@@ -12,12 +12,12 @@ To change this template use File | Settings | File Templates.
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Suvami</title>
-    <link rel="stylesheet" href=<%="http://"+ InetAddress.getLocalHost().getHostAddress().trim() +":8080/styles.css"%> />
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 <nav>
     <div class="logo-container">
-        <a href="startPage.jsp" class="logo">SUVAMI</a>
+        <a class="logo" href=<%="http://"+ InetAddress.getLocalHost().getHostAddress().trim() +":8080/start"%> >SUVAMI</a>
     </div>
     <ul class="nav-links">
         <li class="nav-link"><a href="#">Dla klienta</a></li>
@@ -26,7 +26,7 @@ To change this template use File | Settings | File Templates.
     </ul>
     <div class="login-container">
         <button>
-            <a href=<%="http://"+ InetAddress.getLocalHost().getHostAddress().trim() +":8080"%>
+            <a href=<%="http://"+ InetAddress.getLocalHost().getHostAddress().trim() +":8080/start"%>
             ><img alt="User account" src="assets/icons/back_icon.svg" /></a>
         </button>
     </div>
@@ -45,7 +45,7 @@ To change this template use File | Settings | File Templates.
                 <input type="password" placeholder="Podaj hasło" id="password" name="PASSWORD" />
             </div>
 
-            <button type="sumbit" class="btn">Zaloguj się</button>
+            <button type="submit" class="btn">Zaloguj się</button>
 
             <p>${error}</p>
             <a href="# " class="help-text">Nie możesz się zalogować?</a>

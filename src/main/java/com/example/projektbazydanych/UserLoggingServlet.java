@@ -1,6 +1,7 @@
-package com.example.projektbazydanych.user;
+package com.example.projektbazydanych;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.sql.*;
 import java.util.Objects;
 
@@ -10,6 +11,8 @@ import com.example.projektbazydanych.employee.Employee;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+
+import com.example.projektbazydanych.*;
 
 @WebServlet(name = "UserLoggingServlet", urlPatterns = "/login")
 public class UserLoggingServlet extends HttpServlet {
@@ -36,16 +39,17 @@ public class UserLoggingServlet extends HttpServlet {
                             checkIfClientExist.getString(5), checkIfClientExist.getString(6),
                             checkIfClientExist.getInt(7), checkIfClientExist.getString(8));
 
-                    request.setAttribute("loggedClient", loggedClient);
-
                     Cookie emailcookie = new Cookie("email", email);
-                    emailcookie.setPath("/start");
                     response.addCookie(emailcookie);
                     Cookie passwordcookie = new Cookie("password", password);
-                    passwordcookie.setPath("/start");
                     response.addCookie(passwordcookie);
 
-                    getServletContext().getRequestDispatcher("/LoggedClientMainServlet").forward(request, response);
+                    request.setAttribute("loggedClient", loggedClient);
+
+                    getServletContext().getRequestDispatcher("/clientMainServlet").forward(request, response);
+
+                    con.close();
+                    return;
                 } else {
                     request.setAttribute("error", "Konto nie zostało zweryfikowane");
                     doGet(request, response);
@@ -71,13 +75,14 @@ public class UserLoggingServlet extends HttpServlet {
                     request.setAttribute("loggedEmployee", loggedEmployee);
 
                     Cookie emailcookie = new Cookie("email", email);
-                    emailcookie.setPath("/start");
                     response.addCookie(emailcookie);
                     Cookie passwordcookie = new Cookie("password", password);
-                    passwordcookie.setPath("/start");
                     response.addCookie(passwordcookie);
 
                     getServletContext().getRequestDispatcher("/loggedEmployeeMainPage.jsp").forward(request, response);
+
+                    con.close();
+                    return;
                 } else {
                     checkIfEmployeeExist.close();
                     stmt2.close();
@@ -98,13 +103,14 @@ public class UserLoggingServlet extends HttpServlet {
                         request.setAttribute("loggedCompAdmin", loggedCompAdmin);
 
                         Cookie emailcookie = new Cookie("email", email);
-                        emailcookie.setPath("/start");
                         response.addCookie(emailcookie);
                         Cookie passwordcookie = new Cookie("password", password);
-                        passwordcookie.setPath("/start");
                         response.addCookie(passwordcookie);
 
                         getServletContext().getRequestDispatcher("/loggedCompAdminMainPage.jsp").forward(request, response);
+
+                        con.close();
+                        return;
 
                     } else {
                         request.setAttribute("error", "Błędna nazwa użytkownika lub hasło");

@@ -1,4 +1,4 @@
-package com.example.projektbazydanych.client;
+package com.example.projektbazydanych;
 
 import java.io.*;
 import java.net.InetAddress;

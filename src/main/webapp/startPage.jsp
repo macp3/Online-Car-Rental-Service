@@ -10,7 +10,7 @@
 <body>
 <nav>
     <div class="logo-container">
-        <a class="logo" href=<%="http://"+ InetAddress.getLocalHost().getHostAddress().trim() +":8080"%> >SUVAMI</a>
+        <a class="logo" href=<%="http://"+ InetAddress.getLocalHost().getHostAddress().trim() +":8080/start"%> >SUVAMI</a>
     </div>
     <ul class="nav-links">
         <li class="nav-link"><a href="#">Dla klienta</a></li>

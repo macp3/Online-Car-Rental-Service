@@ -8,9 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Verified</title>
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-${response}
+<h1 style="color: white">${response}</h1>
 </body>
 </html>

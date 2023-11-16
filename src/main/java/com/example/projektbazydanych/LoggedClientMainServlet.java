@@ -1,4 +1,4 @@
-package com.example.projektbazydanych.client;
+package com.example.projektbazydanych;
 
 import java.io.*;
 import java.sql.Connection;
@@ -10,13 +10,16 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "LoggedClientMainServlet", urlPatterns = "/LoggedClientMainServlet")
+import com.example.projektbazydanych.*;
+
+@WebServlet(name = "LoggedClientMainServlet", urlPatterns = "/clientMainServlet")
 public class LoggedClientMainServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("tuu");
         if(request.getAttribute("loggedClient") == null)
         {
             getServletContext().getRequestDispatcher("/start").forward(request, response);

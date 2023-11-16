@@ -1,4 +1,4 @@
-package com.example.projektbazydanych.user;
+package com.example.projektbazydanych;
 
 import java.io.*;
 import java.sql.*;
@@ -19,7 +19,6 @@ public class UserEnterServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Cookie[] cookies = request.getCookies();
-
         if (cookies == null) {
             getServletContext().getRequestDispatcher("/startPage.jsp").forward(request, response);
         } else {
@@ -54,7 +53,7 @@ public class UserEnterServlet extends HttpServlet {
 
                         request.setAttribute("loggedClient", loggedClient);
 
-                        getServletContext().getRequestDispatcher("/LoggedClientMainServlet").forward(request, response);
+                        getServletContext().getRequestDispatcher("/clientMainServlet").forward(request, response);
 
 
                     } else {
