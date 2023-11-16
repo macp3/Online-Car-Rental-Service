@@ -34,10 +34,19 @@ public class PasswordRestoreServlet extends HttpServlet {
             ResultSet checkIfClientExist = stmt1.executeQuery();
 
             if (checkIfClientExist.next()) {
+                stmt1.close();
+                checkIfClientExist.close();
+                query = "update CLIENTS set RESTORECODE=? where EMAIL=?";
+                PreparedStatement stmt2 = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+                stmt2.setString(1, Integer.toString(RestoreCode));
+                stmt2.setString(2, email);
+
+                stmt2.executeQuery();
+
                 new SendEmail().sendMail("Przywrócenie hasła", """
                                                             
                         Aby przywrócić hasło kliknij w poniższy link:
-                        http://""" + InetAddress.getLocalHost().getHostAddress().trim() + ":8080/password_restored" + "?email=" + email.trim() + "&?code=" + RestoreCode + """
+                        http://""" + InetAddress.getLocalHost().getHostAddress().trim() + ":8080/password_restored" + "?email=" + email.trim() + "&code=" + RestoreCode + """
                                                             
                         Pozdrawiamy
                         Zespół SUVami!
