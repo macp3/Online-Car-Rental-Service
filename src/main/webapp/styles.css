@@ -201,14 +201,14 @@ form img {
 .btn:hover{
 	opacity: 0.7;
 }
-input[type="datetime-local"] {
+input[type="date"] {
 	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	color-scheme: dark;
 }
-input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+input[type="date"]::-webkit-calendar-picker-indicator {
 	position: absolute;
 	left: 1rem;
 	top: 50%;

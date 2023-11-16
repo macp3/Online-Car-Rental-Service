@@ -16,7 +16,6 @@ import jakarta.servlet.annotation.*;
 @WebServlet(name = "PasswordRestoreServlet", urlPatterns = "/restore_password")
 public class PasswordRestoreServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("PasswordRestoreServlet - POST");
         String email = request.getParameter("EMAIL");
         Random gen = new Random();
         int RestoreCode = gen.nextInt(1000);
@@ -76,7 +75,6 @@ public class PasswordRestoreServlet extends HttpServlet {
             request.setAttribute("error", "Niepoprawny adres email");
             doGet(request, response);
         } catch (Exception e) {
-            System.out.println(e);
             request.setAttribute("error", e);
             doGet(request, response);
         }

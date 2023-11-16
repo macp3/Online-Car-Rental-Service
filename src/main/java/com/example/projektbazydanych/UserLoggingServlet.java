@@ -120,7 +120,6 @@ public class UserLoggingServlet extends HttpServlet {
             }
             con.close();
         } catch (Exception e) {
-            System.out.println(e);
             request.setAttribute("error", e);
         }
     }

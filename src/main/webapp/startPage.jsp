@@ -28,18 +28,19 @@
 <main>
     <div class="container">
         <h2>Wypożycz pojazd</h2>
-        <form>
+        <form method="post" action="/start">
             <div class="input-group">
                 <img src="assets/icons/location_icon.svg" alt="location" />
-                <input type="text" placeholder="Podaj miasto" id="city" />
+                <input type="text" placeholder="Podaj miasto" id="city" name="city" />
             </div>
 
             <div class="input-group">
-                <input type="datetime-local" />
-                <input type="datetime-local" />
+                <input type="date" name="StartDate"/>
+                <input type="date" name="EndDate"/>
             </div>
 
-            <button type="sumbit" class="btn">Szukaj</button>
+            <button type="submit" class="btn">Szukaj</button>
+            <p>${error}</p>
         </form>
     </div>
 </main>

@@ -14,6 +14,20 @@ import jakarta.servlet.annotation.*;
 @WebServlet(name = "UserEnterServlet", urlPatterns = "/start")
 public class UserEnterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            String city = request.getParameter("city");
+            String startDateString = request.getParameter("StartDate");
+            String endDateString = request.getParameter("EndDate");
+
+            if (startDateString != null && endDateString != null && city != null) {
+                Date startDate = Date.valueOf(startDateString);
+                Date endDate = Date.valueOf(endDateString);
+
+            }
+        } catch (Exception e) {
+            request.setAttribute("error", "Uzupełnij wszystkie pola");
+            doGet(request, response);
+        }
 
     }
 
