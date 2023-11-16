@@ -19,7 +19,6 @@ public class LoggedClientMainServlet extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("tuu");
         if(request.getAttribute("loggedClient") == null)
         {
             getServletContext().getRequestDispatcher("/start").forward(request, response);

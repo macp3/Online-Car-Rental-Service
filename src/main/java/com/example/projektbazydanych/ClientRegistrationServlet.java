@@ -42,9 +42,11 @@ public class ClientRegistrationServlet extends HttpServlet {
 
                     Connection con = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/ORCLPDB", "homeuser", "soloQUita1");
 
-                    String query = "select * from CLIENTS WHERE EMAIL = ?";
+                    String query = "select * from CLIENTS, EMPLOYEES, COMP_ADMINS WHERE CLIENTS.EMAIL = ? OR EMPLOYEES.EMAIL = ? OR COMP_ADMINS.EMAIL = ?";
                     PreparedStatement stmt = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-                    stmt.setString(1, EMAIL.trim());
+                    stmt.setString(1, EMAIL);
+                    stmt.setString(2, EMAIL);
+                    stmt.setString(3, EMAIL);
 
 
                     ResultSet checkIfUserExist = stmt.executeQuery();

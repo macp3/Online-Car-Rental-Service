@@ -40,13 +40,13 @@ public class UserLoggingServlet extends HttpServlet {
                             checkIfClientExist.getInt(7), checkIfClientExist.getString(8));
 
                     Cookie emailcookie = new Cookie("email", email);
-                    response.addCookie(emailcookie);
                     Cookie passwordcookie = new Cookie("password", password);
+                    response.addCookie(emailcookie);
                     response.addCookie(passwordcookie);
 
                     request.setAttribute("loggedClient", loggedClient);
 
-                    getServletContext().getRequestDispatcher("/clientMainServlet").forward(request, response);
+                    getServletContext().getRequestDispatcher("/loggedClientMainPage.jsp").forward(request, response);
 
                     con.close();
                     return;
