@@ -28,8 +28,6 @@ public class UserEnterServlet extends HttpServlet {
                 String tname = c.getName();
                 if (Objects.equals(tname, "email")) email = c.getValue();
                 else if (Objects.equals(tname, "password")) password = c.getValue();
-                System.out.println(tname);
-                System.out.println(c.getValue());
             }
             if (email != null && password != null) {
                 try {
